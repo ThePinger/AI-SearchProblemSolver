@@ -4,6 +4,7 @@ import java.util.TreeSet;
 
 import genericsearch.State;
 
+
 public class EndGameState implements State
 {
 	// This variable represents IronMan Position
@@ -51,14 +52,6 @@ public class EndGameState implements State
 		return this.isThanosAlive;
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see genericsearch.State#generateStateID()
-	 * 
-	 * Generates a String ID for the state to be stored in the StateSpace
-	 * 
-	 * @return StateID as String
-	 */
 	@Override
 	public String generateStateID() 
 	{
@@ -92,7 +85,7 @@ public class EndGameState implements State
 	}
 
 	
-	/*
+	/**
 	 * (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 * 
@@ -117,11 +110,10 @@ public class EndGameState implements State
 		return true;
 	}
 	
-	/*
+	/**
 	 * Private function that checks that both TreeSets are identical
-	 * 
-	 * @param1 a 
-	 * @param2 b
+	 * @param a
+	 * @param b
 	 * @return true if TreeSet a is identical to TreeSet b
 	 */
 	private boolean identicalTreeSet(TreeSet<Position> a, TreeSet<Position> b)
