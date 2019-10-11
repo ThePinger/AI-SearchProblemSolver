@@ -7,18 +7,18 @@ import java.util.Queue;
 
 public abstract class SearchProblem 
 {
-	private ArrayList <Operator> genericOperators;
+	private ArrayList <Operator> operators;
 	private State initialState;
 	private HashSet <State> stateSpace;
 	
-	public ArrayList <Operator> getGenericOperators()
+	public ArrayList <Operator> getoperators()
 	{
-		return this.genericOperators;
+		return this.operators;
 	}
 	
-	public void setGenericOperators(ArrayList <Operator> genericOperators)
+	public void setoperators(ArrayList <Operator> operators)
 	{
-		this.genericOperators = genericOperators;
+		this.operators = operators;
 	}
 
 	public State getInitialState()
@@ -50,14 +50,14 @@ public abstract class SearchProblem
 	public Queue <Node> expand(Node node)
 	{
 		Queue <Node> q = new LinkedList<Node>();
-		for(int i = 0; i < this.genericOperators.size(); i++)
+		for(int i = 0; i < this.operators.size(); i++)
 		{
-			State childNodeState = genericOperators.get(i).apply(node.getState());
+			State childNodeState = operators.get(i).apply(node.getState());
 			if(childNodeState != null)
 			{
 				if( !(this.stateSpace.contains(childNodeState)) )
 				{
-					Node childNode = new Node(childNodeState, node, genericOperators.get(i), (node.getParentNode().getDepth() + 1), this.pathCost(childNodeState));
+					Node childNode = new Node(childNodeState, node, operators.get(i), (node.getParentNode().getDepth() + 1), this.pathCost(childNodeState));
 					this.stateSpace.add(childNodeState);
 					q.add(childNode);
 				}
