@@ -1,6 +1,6 @@
 package genericsearch;
 
-public class Node 
+public class Node implements Comparable<Node>
 {
 	private State state;	// This variable represents the state of the given node
 	private Node parentNode;	// This is a reference to the parent of this node
@@ -40,5 +40,14 @@ public class Node
 	public Node getParentNode()
 	{
 		return this.parentNode;
+	}
+
+	/**
+	 * This method returns a negative number if this node has lower cost than Node o, returns 0 if they have identical costs,
+	 * and return a positive number if Node o has a lower cost.
+	 */
+	public int compareTo(Node o)
+	{
+		return this.pathCost - o.pathCost;
 	}
 }
