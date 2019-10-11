@@ -14,11 +14,11 @@ public abstract class EndGameOperator implements Operator
 	 * This helper method checks to see if x,y are inside the grid
 	 * @param1 x
 	 * @param2 y
-	 * @return true if position is outside the grid
+	 * @return true if position is inside the grid
 	 */
 	private boolean isWithinGrid(int x, int y)
 	{
-		return x > EndGame.getM() || y > EndGame.getN() || x < 0 || y < 0;
+		return x < EndGame.getM() && y < EndGame.getN() && x > -1 && y > -1;
 	}
 	
 	/**
@@ -51,7 +51,7 @@ public abstract class EndGameOperator implements Operator
 	 */
 	public boolean isValidMove(EndGameState newState)
 	{	
-		if (this.isWithinGrid(newState.getIronManPosition().getX(), newState.getIronManPosition().getY())
+		if (!this.isWithinGrid(newState.getIronManPosition().getX(), newState.getIronManPosition().getY())
 				|| this.isWarriorCell(newState.getIronManPosition(), newState.getAliveWarriors())
 				|| this.isThanosCell(newState.getIronManPosition()))
 		{
