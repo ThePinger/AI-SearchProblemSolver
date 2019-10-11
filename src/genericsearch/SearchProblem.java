@@ -16,7 +16,7 @@ public abstract class SearchProblem
 		return this.operators;
 	}
 	
-	public void setoperators(ArrayList <Operator> operators)
+	public void setOperators(ArrayList <Operator> operators)
 	{
 		this.operators = operators;
 	}
