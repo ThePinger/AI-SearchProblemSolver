@@ -1,8 +1,6 @@
 package genericsearch;
 
-import endgame.EndGameState;
-
-public interface State extends Comparable<State>
+public interface State
 {
-
+	public String generateStateID();
 }
