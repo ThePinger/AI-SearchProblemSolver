@@ -13,28 +13,13 @@ public class EndGame extends SearchProblem
 		return m;
 	}
 	
-	public static void setM(int m)
-	{
-		EndGame.m = m;
-	}
-	
 	public static int getN()
 	{
 		return n;
 	}
 	
-	public static void setN(int n)
-	{
-		EndGame.n = n;
-	}
-	
 	public static Position getThanosLocation()
 	{
 		return thanosLocation;
-	}
-	
-	public static void setThanosLocation(Position thanosLocation)
-	{
-		EndGame.thanosLocation = thanosLocation;
 	}
 }
