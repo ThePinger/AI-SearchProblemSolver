@@ -22,17 +22,7 @@ public class Position implements Comparable<Position>
 		return this.y;
 	}
 	
-	public void setX(int x)
-	{
-		this.x = x;
-	}
-	
-	public void setY(int y)
-	{
-		this.y = y;
-	}
-	
-	/*
+	/**
 	 * (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 * Checks if two Position objects are identical
@@ -47,7 +37,7 @@ public class Position implements Comparable<Position>
 		return this.x == otherPosition.x && this.y == otherPosition.y;
 	}
 	
-	/*
+	/**
 	 * This function compares two positions A, B. 
 	 * IF position A equal to position B returns 0	
 	 * ELSE compares according to X, Y (Not Used in the Project)
