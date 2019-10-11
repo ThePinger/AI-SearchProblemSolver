@@ -6,10 +6,15 @@ import genericsearch.State;
 
 public class EndGameState implements State
 {
-	private Position ironManPosition;
-	private int damage;
+	// This variable represents IronMan Position
+	private Position ironManPosition; 
+	// This variable represents the damage received by IronMan
+	private int damage; 
+	// This variable represents a set of uncollected stones
 	private TreeSet<Position> uncollectedStones;
-	private TreeSet<Position> aliveWarriors;
+	// This variable represents a set of alive warriors
+	private TreeSet<Position> aliveWarriors; 
+	// This variable represents if thanos is alive or not
 	private boolean isThanosAlive;
 	
 	public EndGameState(Position ironManPosition, int damage, TreeSet<Position> uncollectedStones, TreeSet<Position> aliveWarriors, boolean isThanosAlive) 
@@ -51,6 +56,8 @@ public class EndGameState implements State
 	 * @see genericsearch.State#generateStateID()
 	 * 
 	 * Generates a String ID for the state to be stored in the StateSpace
+	 * 
+	 * @return StateID as String
 	 */
 	@Override
 	public String generateStateID() 
@@ -112,6 +119,10 @@ public class EndGameState implements State
 	
 	/*
 	 * Private function that checks that both TreeSets are identical
+	 * 
+	 * @param1 a 
+	 * @param2 b
+	 * @return true if TreeSet a is identical to TreeSet b
 	 */
 	private boolean identicalTreeSet(TreeSet<Position> a, TreeSet<Position> b)
 	{
