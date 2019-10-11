@@ -8,32 +8,32 @@ public class EndGame extends SearchProblem
 	private static int n; // an integer representing the maximum width of the grid
 	private static Position thanosLocation; // Thanos' position in the grid
 	
-	public int getM()
+	public static int getM()
 	{
 		return m;
 	}
 	
-	public void setM(int m)
+	public static void setM(int m)
 	{
 		EndGame.m = m;
 	}
 	
-	public int getN()
+	public static int getN()
 	{
 		return n;
 	}
 	
-	public void setN(int n)
+	public static void setN(int n)
 	{
 		EndGame.n = n;
 	}
 	
-	public Position getThanosLocation()
+	public static Position getThanosLocation()
 	{
 		return thanosLocation;
 	}
 	
-	public void setThanosLocation(Position thanosLocation)
+	public static void setThanosLocation(Position thanosLocation)
 	{
 		EndGame.thanosLocation = thanosLocation;
 	}
