@@ -61,7 +61,7 @@ public class EndGame extends SearchProblem
 		boolean isThanosAlive = nodeState.isThanosAlive();
 		
 		if( ironmanPosition.equals(EndGame.getThanosLocation()) &&
-			damage < 100 && uncollectedStones.isEmpty() && isThanosAlive)
+			damage < 100 && uncollectedStones.isEmpty() && !isThanosAlive)
 			return true;
 		else
 			return false;
