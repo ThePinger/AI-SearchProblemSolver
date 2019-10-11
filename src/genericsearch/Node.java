@@ -2,17 +2,17 @@ package genericsearch;
 
 public class Node 
 {
-	private State state;		// This variable represents the state of the given node
-	private Node parent;		// This is a reference to the parent of this node
-	private Operator operator;	// This is a reference to the operator applied to the parent node to get to this node
-	private int depth;			// This is an integer representing the depth of this node in the search tree
-	private int pathCost;		// This is an integer representing the cost of the sequence of actions required to reach this node from the root
+	private State state;	// This variable represents the state of the given node
+	private Node parentNode;	// This is a reference to the parent of this node
+	private Operator appliedOperator;	// This is a reference to the operator applied to the parent node to get to this node
+	private int depth;	// This is an integer representing the depth of this node in the search tree
+	private int pathCost;	// This is an integer representing the cost of the sequence of actions required to reach this node from the root
 	
-	public Node(State state, Node parent, Operator operator, int depth, int pathCost)
+	public Node(State state, Node parentNode, Operator appliedOperator, int depth, int pathCost)
 	{
 		this.state = state;
-		this.parent = parent;
-		this.operator = operator;
+		this.parentNode = parentNode;
+		this.appliedOperator = appliedOperator;
 		this.depth = depth;
 		this.pathCost = pathCost;
 	}
@@ -29,7 +29,7 @@ public class Node
 	
 	public Operator getOperator()
 	{
-		return this.operator;
+		return this.appliedOperator;
 	}
 	
 	public State getState()
@@ -37,8 +37,8 @@ public class Node
 		return this.state;
 	}
 	
-	public Node getParent()
+	public Node getParentNode()
 	{
-		return this.parent;
+		return this.parentNode;
 	}
 }
