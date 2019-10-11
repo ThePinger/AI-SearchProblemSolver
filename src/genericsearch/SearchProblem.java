@@ -57,7 +57,7 @@ public abstract class SearchProblem
 			{
 				if( !(this.stateSpace.contains(childNodeState)) )
 				{
-					Node childNode = new Node(childNodeState, node, genericOperators.get(i), (node.getParent().getDepth() + 1), this.pathCost(childNodeState));
+					Node childNode = new Node(childNodeState, node, genericOperators.get(i), (node.getParentNode().getDepth() + 1), this.pathCost(childNodeState));
 					this.stateSpace.add(childNodeState);
 					q.add(childNode);
 				}
