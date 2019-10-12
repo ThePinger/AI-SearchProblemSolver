@@ -22,8 +22,9 @@ public class Kill extends EndGameOperator
 		Position ironManPosition = curState.getIronManPosition();
 		TreeSet<Position> aliveWarriors = curState.getAliveWarriors();
 		
+		// Adds Damage of warriors in adjacent cells and removes them from alive warriors set
 		ArrayList<Position> adjacentCells = super.getAdjacentCells(ironManPosition);
-		int newDamage = curState.getDamage();
+		int newDamage = 0;
 		for(Position p : adjacentCells)
 		{
 			if(aliveWarriors.contains(p))
@@ -33,12 +34,15 @@ public class Kill extends EndGameOperator
 			}
 		}
 		
-		newDamage += super.calculateDamage(ironManPosition, aliveWarriors);
+		// If no attacks initiated don't create a new state
+		if(newDamage > 0)
+		{
+			newDamage += curState.getDamage() + super.calculateDamage(ironManPosition, aliveWarriors);
+			EndGameState newState = new EndGameState(ironManPosition, newDamage, curState.getUncollectedStones(), aliveWarriors, curState.isThanosAlive());
+			if(super.isValidMove(newState) && newDamage < 100)
+				return newState;
+		}
 		
-		EndGameState newState = new EndGameState(ironManPosition, newDamage, curState.getUncollectedStones(), aliveWarriors, curState.isThanosAlive());
-		
-		if(super.isValidMove(newState) && newDamage < 100)
-			return newState;
 		return null;
 	}
 }
