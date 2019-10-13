@@ -13,7 +13,7 @@ public class Snap extends EndGameOperator
 	 * This method applies the snap operator by checking first if Ironman has all six stones and is occupying the same cell as Thanos.
 	 * If this is the case it returns a new state specifying that Thanos is now dead. Otherwise it returns null.
 	 */
-	public EndGameState apply(State oldState)
+	public State apply(State oldState)
 	{
 		Position ironManPosition = ((EndGameState) oldState).getIronManPosition();
 		TreeSet<Position> uncollectedStones = ((EndGameState) oldState).getUncollectedStones();

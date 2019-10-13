@@ -13,7 +13,7 @@ public class Collect extends EndGameOperator
 	 * If this is the case, it adds 3 damage to the total damage and removes the stone's position from the TreeSet of stones and
 	 * returns the new state if the new total damage is less than 100. Otherwise it returns null.
 	 */
-	public EndGameState apply(State oldState)
+	public State apply(State oldState)
 	{
 		// get all attributes from the old state
 		Position ironManPosition = ((EndGameState) oldState).getIronManPosition();
@@ -35,7 +35,7 @@ public class Collect extends EndGameOperator
 		// check if Ironman occupies the same cell as an infinity stone. If so return a new state, else return null.
 		if(addedDamage == 3)
 		{
-			int newDamage = addedDamage + this.calculateDamage(ironManPosition, aliveWarriors) + ((EndGameState) oldState).getDamage();
+			int newDamage = addedDamage + super.calculateDamage(ironManPosition, aliveWarriors) + ((EndGameState) oldState).getDamage();
 			
 			// check that the damage is less than 100
 			if(newDamage < 100)
