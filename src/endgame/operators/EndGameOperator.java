@@ -65,7 +65,7 @@ public abstract class EndGameOperator implements Operator
 	 * @param ironManPosition
 	 * @return ArrayList that contains the adjacent cells
 	 */
-	private ArrayList <Position> getAdjacentCells(Position ironManPosition)
+	public ArrayList <Position> getAdjacentCells(Position ironManPosition)
 	{
 		int x = ironManPosition.getX();
 		int y = ironManPosition.getY();
