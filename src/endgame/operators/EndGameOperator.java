@@ -92,12 +92,12 @@ public abstract class EndGameOperator implements Operator
 	{
 		int damage = 0;
 		ArrayList <Position> adjacentCells = this.getAdjacentCells(ironManPosition);
+		if (EndGame.getThanosLocation().equals(ironManPosition))
+			damage += 5;
 		for (int i = 0; i < adjacentCells.size(); i++)
 		{
 			if (aliveWarriors.contains(adjacentCells.get(i)))
 				damage += 1;
-			else if (aliveWarriors.contains(EndGame.getThanosLocation()))
-				damage += 5;
 		}
 		return damage;
 	}
