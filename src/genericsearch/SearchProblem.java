@@ -42,6 +42,31 @@ public abstract class SearchProblem
 	
 	public abstract State createInitialState();
 	
+	public Node generalSearch(QINGFunction q, int maximumDepth)
+	{
+		// TODO Shady
+		return null;
+	}
+	
+	public Node dfs()
+	{
+		return this.generalSearch(QINGFunction.DFS, -1);
+	}
+	
+	public Node ids()
+	{
+		int maximumDepth = 0;
+		while(true)
+		{
+			Node goalNode = this.generalSearch(QINGFunction.IDS, maximumDepth);
+			
+			if(goalNode != null)
+				return goalNode;
+			else
+				maximumDepth++;
+		}
+	}
+	
 	/**
 	 * This method expands the current node applying all operators on it
 	 * @param node The node that is going to be expanded
