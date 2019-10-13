@@ -44,7 +44,21 @@ public abstract class SearchProblem
 	
 	public Node generalSearch(QINGFunction q, int maximumDepth)
 	{
-		// TODO Shady
+		this.setInitialState(this.createInitialState());
+		Node rootNode = new Node(this.getInitialState(), null, null, maximumDepth, 0);
+		Queue <Node> queue = new LinkedList<Node>();
+		queue.add(rootNode);
+		AuxiliaryQueue auxQ = new AuxiliaryQueue(q);
+		auxQ.insertNewNodes(queue);
+		while( !(auxQ.isEmpty()) )
+		{
+			Node node = auxQ.removeFront();
+			if (node.getDepth() == maximumDepth + 1)
+				break;
+			if(this.goalTest(node))
+				return node;
+			auxQ.insertNewNodes(this.expand(node));
+		}
 		return null;
 	}
 	
