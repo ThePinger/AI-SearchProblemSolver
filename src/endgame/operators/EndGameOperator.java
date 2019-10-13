@@ -53,7 +53,7 @@ public abstract class EndGameOperator implements Operator
 	{	
 		if (!this.isWithinGrid(newState.getIronManPosition().getX(), newState.getIronManPosition().getY())
 				|| this.isWarriorCell(newState.getIronManPosition(), newState.getAliveWarriors())
-				|| this.isThanosCell(newState.getIronManPosition()))
+				|| (this.isThanosCell(newState.getIronManPosition()) && !(newState.getUncollectedStones().isEmpty())) )
 		{
 			return false;
 		}
