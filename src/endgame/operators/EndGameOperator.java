@@ -53,7 +53,7 @@ public abstract class EndGameOperator implements Operator
 	{	
 		if (!this.isWithinGrid(newState.getIronManPosition().getX(), newState.getIronManPosition().getY())
 				|| this.isWarriorCell(newState.getIronManPosition(), newState.getAliveWarriors())
-				|| this.isThanosCell(newState.getIronManPosition()))
+				|| (this.isThanosCell(newState.getIronManPosition()) && !(newState.getUncollectedStones().isEmpty())) )
 		{
 			return false;
 		}
@@ -92,12 +92,12 @@ public abstract class EndGameOperator implements Operator
 	{
 		int damage = 0;
 		ArrayList <Position> adjacentCells = this.getAdjacentCells(ironManPosition);
+		if (adjacentCells.contains(EndGame.getThanosLocation()))
+			damage += 5;
 		for (int i = 0; i < adjacentCells.size(); i++)
 		{
 			if (aliveWarriors.contains(adjacentCells.get(i)))
 				damage += 1;
-			else if (aliveWarriors.contains(EndGame.getThanosLocation()))
-				damage += 5;
 		}
 		return damage;
 	}
