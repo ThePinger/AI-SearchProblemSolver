@@ -9,8 +9,9 @@ public class AuxiliaryQueue
 {
 	/**
 	 * The purpose of this class is to make the queuing process in the general search procedure easier. Upon creation, it checks on the QINGFunction passed to it in
-	 * the constructor and decides what kind of data structure is going to be used. For DFS and IDS, it uses a stack. For BFS, it uses a queue. For UCS, it uses a priority queue.
-	 * It stores the qingFunction as an instance variable to be able to decide how to store/remove nodes after it has been created.
+	 * the constructor and decides what kind of data structure is going to be used. For DFS and IDS, it uses a stack. For BFS, it uses a queue. For UCS, Greedy, and A-Star
+	 * it uses a priority queue. The parameter that the nodes are sorted by inside the queue depends on the QINGFunction and is determined in the compareTo method in the
+	 * Node class. It stores the qingFunction as an instance variable to be able to decide how to store/remove nodes after it has been created.
 	 */
 	private Object auxQueue;
 	private QINGFunction qingFunction;
@@ -24,6 +25,10 @@ public class AuxiliaryQueue
 		case DFS: this.auxQueue = new Stack<Node>(); break;
 		case IDS: this.auxQueue = new Stack<Node>(); break;
 		case BFS: this.auxQueue = new LinkedList<Node>(); break;
+		case GREEDY_1:
+		case GREEDY_2:
+		case A_STAR_1:
+		case A_STAR_2:
 		case UCS: this.auxQueue = new PriorityQueue<Node>(); break;
 		}
 	}
@@ -52,6 +57,10 @@ public class AuxiliaryQueue
 				((Stack<Node>) this.auxQueue).push(newNodes.poll());
 			break;
 			
+		case GREEDY_1:
+		case GREEDY_2:
+		case A_STAR_1:
+		case A_STAR_2:
 		case UCS:
 			while(!newNodes.isEmpty())
 				((PriorityQueue<Node>) this.auxQueue).add(newNodes.poll());
@@ -70,6 +79,10 @@ public class AuxiliaryQueue
 		case DFS: return ((Stack<Node>) this.auxQueue).isEmpty();
 		case BFS: return ((Queue<Node>) this.auxQueue).isEmpty();
 		case IDS: return ((Stack<Node>) this.auxQueue).isEmpty();
+		case GREEDY_1:
+		case GREEDY_2:
+		case A_STAR_1:
+		case A_STAR_2:
 		case UCS: return ((PriorityQueue<Node>) this.auxQueue).isEmpty();
 		default: return false;
 		}
@@ -87,6 +100,10 @@ public class AuxiliaryQueue
 		case DFS: return ((Stack<Node>) this.auxQueue).pop();
 		case IDS: return ((Stack<Node>) this.auxQueue).pop();
 		case BFS: return ((Queue<Node>) this.auxQueue).poll();
+		case GREEDY_1:
+		case GREEDY_2:
+		case A_STAR_1:
+		case A_STAR_2:
 		case UCS: return ((PriorityQueue<Node>) this.auxQueue).poll();
 		default: return null;
 		}

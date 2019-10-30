@@ -42,10 +42,12 @@ public abstract class SearchProblem
 	
 	public abstract State createInitialState();
 	
+	public abstract void calculateExpectedCostToGoal(Node node);
+	
 	public Node generalSearch(QINGFunction q, int maximumDepth)
 	{
 		this.initialState = this.createInitialState();
-		Node rootNode = new Node(this.initialState, null, null, 0, 0);
+		Node rootNode = new Node(this.initialState, null, null, 0, 0, q);
 		Queue <Node> queue = new LinkedList<Node>();
 		queue.add(rootNode);
 		AuxiliaryQueue auxQ = new AuxiliaryQueue(q);
@@ -59,6 +61,23 @@ public abstract class SearchProblem
 				continue;
 			auxQ.insertNewNodes(this.expand(node));
 		}
+		return null;
+	}
+	
+	/**
+	 * This method is regular A-star search, it takes an integer as input
+	 * and determines which heuristic will be used. It then calls the generalSearch procedure.
+	 * @param heuristicFunction, the int indicating the heuristic function that should be used.
+	 * @return The result of calling generalSearch.
+	 */
+	public Node AStar(int heuristicFunction)
+	{
+		if(heuristicFunction == 1)
+			return this.generalSearch(QINGFunction.A_STAR_1, -1);
+		
+		if(heuristicFunction == 2)
+			return this.generalSearch(QINGFunction.A_STAR_2, -1);
+		
 		return null;
 	}
 	
@@ -96,7 +115,8 @@ public abstract class SearchProblem
 			{
 				if( !(this.stateSpace.contains(childNodeState)) )
 				{
-					Node childNode = new Node(childNodeState, node, operators.get(i), (node.getParentNode().getDepth() + 1), this.pathCost(childNodeState));
+					Node childNode = new Node(childNodeState, node, operators.get(i), (node.getParentNode().getDepth() + 1), this.pathCost(childNodeState), node.getQingFunction());
+					this.calculateExpectedCostToGoal(childNode);
 					this.stateSpace.add(childNodeState);
 					q.add(childNode);
 				}
