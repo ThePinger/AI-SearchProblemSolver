@@ -36,14 +36,42 @@ public abstract class SearchProblem
 		return this.stateSpace;
 	}
 	
+	/**
+	 * The method performs goalTest on a certain Node to determine if it is a Goal Node
+	 * 
+	 * @param node
+	 * @return true if it is a Goal Node otherwise false
+	 */
 	public abstract boolean goalTest(Node node);
 	
+	/**
+	 * This method calculates path cost from root to this State
+	 * 
+	 * @param state
+	 * @return cost from root to state
+	 */
 	public abstract int pathCost(State state);
 	
+	/**
+	 * This method creates initial state
+	 * 
+	 * @return
+	 */
 	public abstract State createInitialState();
 	
+	/**
+	 * This method calculates expected cost to goal from a certain node and assigns that value to expectedCostToGoal variable in Node
+	 * 
+	 * @param node
+	 */
 	public abstract void calculateExpectedCostToGoal(Node node);
 	
+	/**
+	 * 
+	 * @param q
+	 * @param maximumDepth
+	 * @return
+	 */
 	public Node generalSearch(QINGFunction q, int maximumDepth)
 	{
 		this.initialState = this.createInitialState();
@@ -81,11 +109,19 @@ public abstract class SearchProblem
 		return null;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Node dfs()
 	{
 		return this.generalSearch(QINGFunction.DFS, -1);
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Node ids()
 	{
 		int maximumDepth = 0;
@@ -98,6 +134,41 @@ public abstract class SearchProblem
 			else
 				maximumDepth++;
 		}
+	}
+	
+	/**
+	 * This method performs BreadthFirstSearch.
+	 * 
+	 * @return Goal Node.
+	 */
+	public Node bfs()
+	{
+		return this.generalSearch(QINGFunction.BFS, -1);
+	}
+	
+	/**
+	 * This method performs UniformCostSearch.
+	 * 
+	 * @return Goal Node.
+	 */
+	public Node ucs()
+	{
+		return this.generalSearch(QINGFunction.UCS, -1);
+	}
+	
+	/**
+	 * This method performs GreedySearch based on the input heuristic function.
+	 * 
+	 * @param heuristicFunction an integer indicating the heuristic function that should be used.
+	 * @return Goal Node.
+	 */
+	public Node greedySearch(int heuristicFunction)
+	{
+		if(heuristicFunction == 1)
+			return this.generalSearch(QINGFunction.GREEDY_1, -1);
+		if(heuristicFunction == 2)
+			return this.generalSearch(QINGFunction.GREEDY_2, -1);
+		return null;
 	}
 	
 	/**
