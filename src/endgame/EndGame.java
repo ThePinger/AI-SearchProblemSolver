@@ -102,4 +102,97 @@ public class EndGame extends SearchProblem
 	{
 		return thanosLocation;
 	}
+
+	@Override
+	public void calculateExpectedCostToGoal(Node node)
+	{
+		// TODO Omar
+		this.AStarHeuristic1(node);
+		
+	}
+	
+	/**
+	 * This is one of the heuristic functions used for A-Star Search.
+	 * It calculates the expected cost to the goal as follows: <br><br>
+	 *                 <b> f(n) = g(n) + h(n) </b> <br><br>
+	 * where g(n) is the path cost from the root to the node and h(n) is heuristic function 1 for A-Star search.
+	 * h(n) is calculated as follows: <br><br>
+	 *                 <b> h(n) = (3 * s) + 5 </b> <br><br>
+	 * where s is the number of uncollected stones.
+	 * @param the node that the expected for is being calculated.
+	 * @return the expected cost to the goal ( f(n) )
+	 */
+	private double AStarHeuristic1(Node node)
+	{
+		int pathCost = node.getPathCost();
+		int stonesRemaining = ((EndGameState) node.getState()).getUncollectedStones().size();
+		
+		double h = (stonesRemaining * 3) + 5;
+		
+		return pathCost + h;
+	}
+	
+	/**
+	 * This is one of the heuristic functions used for A-Star Search.
+	 * It calculates the expected cost to the goal as follows: <br><br>
+	 *                 <b> f(n) = g(n) + h(n) </b> <br><br>
+	 * where g(n) is the path cost from the root to the node and h(n) is heuristic function 1 for A-Star search.
+	 * h(n) is calculated as follows: <br><br>
+	 *                 <b> h(n) = (3 * s) + (0.75 * w) + 5 </b> <br><br>
+	 * where s is the number of uncollected stones and w is the number of warriors that occupy a cell that is adjacent to any of the stones.
+	 * @param the node that the expected for is being calculated.
+	 * @return the expected cost to the goal ( f(n) )
+	 */
+	private double AStarHeuristic2(Node node)
+	{
+		int pathCost = node.getPathCost();
+		int stonesRemaining = ((EndGameState) node.getState()).getUncollectedStones().size();
+		TreeSet<Position> stones = ((EndGameState) node.getState()).getUncollectedStones();
+		TreeSet<Position> warriors = ((EndGameState) node.getState()).getAliveWarriors();
+		
+		int warriorsAdjacentToStones = 0;
+		while(!stones.isEmpty())
+		{
+			Position currentStone = stones.pollFirst();
+	
+			ArrayList<Position> adjacentCells = this.getAdjacentCells(currentStone);
+			
+			while(!warriors.isEmpty())
+			{
+				Position currentWarrior = warriors.pollFirst();
+				if(adjacentCells.contains(currentWarrior))
+					warriorsAdjacentToStones++;
+			}
+			
+			// get a new clone of the warrior positions for next iteration
+			warriors = ((EndGameState) node.getState()).getAliveWarriors();
+		}
+		
+		double h = (stonesRemaining * 3) + (0.75 * warriorsAdjacentToStones) + 5;
+		
+		return pathCost + h;
+	}
+	
+	/**
+	 * This method is only meant to be used as a helper for the calculation of the expected cost
+	 * using AStarHueristic2. It returns all positions adjacent to a given position. Here a position
+	 * is considered adjacent if it is either up, down, left, or right. diagonals are not considered adjacent.
+	 * @param position
+	 * @return all adjacent positions
+	 */
+	private ArrayList <Position> getAdjacentCells(Position position)
+	{
+		int x = position.getX();
+		int y = position.getY();
+		
+		ArrayList <Position> a = new ArrayList<Position>();
+		
+		a.add(new Position(x+1,y));
+		a.add(new Position(x-1,y));
+		a.add(new Position(x,y+1));
+		a.add(new Position(x,y-1));
+			
+		return a;
+		
+	}
 }
