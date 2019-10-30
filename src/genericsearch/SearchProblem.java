@@ -42,10 +42,12 @@ public abstract class SearchProblem
 	
 	public abstract State createInitialState();
 	
+	public abstract void calculateExpectedCostToGoal(Node node);
+	
 	public Node generalSearch(QINGFunction q, int maximumDepth)
 	{
 		this.initialState = this.createInitialState();
-		Node rootNode = new Node(this.initialState, null, null, 0, 0);
+		Node rootNode = new Node(this.initialState, null, null, 0, 0, q);
 		Queue <Node> queue = new LinkedList<Node>();
 		queue.add(rootNode);
 		AuxiliaryQueue auxQ = new AuxiliaryQueue(q);
@@ -96,7 +98,8 @@ public abstract class SearchProblem
 			{
 				if( !(this.stateSpace.contains(childNodeState)) )
 				{
-					Node childNode = new Node(childNodeState, node, operators.get(i), (node.getParentNode().getDepth() + 1), this.pathCost(childNodeState));
+					Node childNode = new Node(childNodeState, node, operators.get(i), (node.getParentNode().getDepth() + 1), this.pathCost(childNodeState), node.getQingFunction());
+					this.calculateExpectedCostToGoal(childNode);
 					this.stateSpace.add(childNodeState);
 					q.add(childNode);
 				}
