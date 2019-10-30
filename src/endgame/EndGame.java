@@ -6,6 +6,7 @@ import java.util.TreeSet;
 import endgame.operators.*;
 import genericsearch.Node;
 import genericsearch.Operator;
+import genericsearch.QINGFunction;
 import genericsearch.SearchProblem;
 import genericsearch.State;
 
@@ -84,7 +85,8 @@ public class EndGame extends SearchProblem
 	 * @return the initial state of the problem.
 	 */
 	@Override
-	public State createInitialState() {
+	public State createInitialState() 
+	{
 		return new EndGameState(this.ironmanStartingPosition, 0, this.uncollectedStones, this.aliveWarriors, true);
 	}
 	
@@ -106,9 +108,80 @@ public class EndGame extends SearchProblem
 	@Override
 	public void calculateExpectedCostToGoal(Node node)
 	{
-		// TODO Omar
-		this.AStarHeuristic1(node);
+		if(node.getQingFunction() == QINGFunction.A_STAR_1)
+			node.setExpectedCostToGoal(this.AStarHeuristic1(node));
+		if(node.getQingFunction() == QINGFunction.A_STAR_2)
+			node.setExpectedCostToGoal(this.AStarHeuristic2(node));
+		if(node.getQingFunction() == QINGFunction.GREEDY_1)
+			node.setExpectedCostToGoal(this.greedyHeuristic1(node));
+		if(node.getQingFunction() == QINGFunction.GREEDY_2)
+			node.setExpectedCostToGoal(this.greedyHeuristic2(node));
+	}
+	
+	/**
+	 * This is one of the heuristic functions used for Greedy Search.
+	 * It calculates the expected cost to the goal as follows: <br><br>
+	 *                 <b> f(n) = h(n) </b> <br><br>
+	 * where h(n) is heuristic function 1 for Greedy search.
+	 * h(n) is calculated as follows: <br><br>
+	 *                 <b> h(n) = (3 * s) + (2 * w) + 5 </b> <br><br>
+	 * where s is the number of uncollected stones and w is the number of warriors adjacent to all uncollected stones.
+	 * @param the node that the expected for is being calculated.
+	 * @return the expected cost to the goal ( f(n) )
+	 */
+	private double greedyHeuristic1(Node node)
+	{
+		EndGameState state = (EndGameState) node.getState();
+		TreeSet<Position> stones = state.getUncollectedStones();
+		TreeSet<Position> warriors = state.getAliveWarriors();
+		int uncollectedStones = stones.size();
 		
+		int warriorsAdjacentToStonesCount = 0;
+		for(Position stonePosition: stones)
+		{
+			ArrayList<Position> adjacentCells = this.getAdjacentCells(stonePosition);
+			for(Position adj: adjacentCells)
+				if(warriors.contains(adj))
+					warriorsAdjacentToStonesCount++;
+		}
+		
+		return (3 * uncollectedStones) + (2 * warriorsAdjacentToStonesCount) + 5;
+	}
+	
+	/**
+	 * This is one of the heuristic functions used for Greedy Search.
+	 * It calculates the expected cost to the goal as follows: <br><br>
+	 *                 <b> f(n) = h(n) </b> <br><br>
+	 * where h(n) is heuristic function 2 for Greedy search.
+	 * h(n) is calculated as follows: <br><br>
+	 *                 <b> h(n) = (3 * s) + (0.75 * w) + (5 * (t + 1)) </b> <br><br>
+	 * where s is the number of uncollected stones, 
+	 * w is the number of warriors adjacent to all uncollected stones and t is the number of uncollected stones adjacent to thanos position.
+	 * @param the node that the expected for is being calculated.
+	 * @return the expected cost to the goal ( f(n) )
+	 */
+	private double greedyHeuristic2(Node node)
+	{
+		EndGameState state = (EndGameState) node.getState();
+		TreeSet<Position> stones = state.getUncollectedStones();
+		TreeSet<Position> warriors = state.getAliveWarriors();
+		int uncollectedStones = stones.size();
+		
+		int warriorsAdjacentToStonesCount = 0;
+		int thanosAdjacentToStonesCount = 0;
+		for(Position stonePosition: stones)
+		{
+			ArrayList<Position> adjacentCells = this.getAdjacentCells(stonePosition);
+			for(Position adj: adjacentCells)
+			{
+				if(warriors.contains(adj))
+					warriorsAdjacentToStonesCount++;
+				if(EndGame.thanosLocation.equals(adj))
+					thanosAdjacentToStonesCount++;
+			}
+		}
+		
+		return (3 * uncollectedStones) + (0.75 * warriorsAdjacentToStonesCount) + (5 * (thanosAdjacentToStonesCount + 1));
 	}
 	
 	/**
