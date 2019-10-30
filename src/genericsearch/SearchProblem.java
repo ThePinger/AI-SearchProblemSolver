@@ -64,6 +64,23 @@ public abstract class SearchProblem
 		return null;
 	}
 	
+	/**
+	 * This method is regular A-star search, it takes an integer as input
+	 * and determines which heuristic will be used. It then calls the generalSearch procedure.
+	 * @param heuristicFunction, the int indicating the heuristic function that should be used.
+	 * @return The result of calling generalSearch.
+	 */
+	public Node AStar(int heuristicFunction)
+	{
+		if(heuristicFunction == 1)
+			return this.generalSearch(QINGFunction.A_STAR_1, -1);
+		
+		if(heuristicFunction == 2)
+			return this.generalSearch(QINGFunction.A_STAR_2, -1);
+		
+		return null;
+	}
+	
 	public Node dfs()
 	{
 		return this.generalSearch(QINGFunction.DFS, -1);
