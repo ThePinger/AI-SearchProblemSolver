@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public abstract class SearchProblem 
 {
@@ -211,14 +212,19 @@ public abstract class SearchProblem
 	{
 		StringBuilder sb = new StringBuilder();
 		Node curNode = goalNode;
-		while(curNode != null)
+		Stack<String> appliedOperators = new Stack<>();
+		while(curNode.getOperator() != null)
 		{
-			sb.append(curNode.getOperator().getOperatorName());
+			appliedOperators.push(curNode.getOperator().getOperatorName());
 			curNode = curNode.getParentNode();
-			if(curNode != null) sb.append(',');
 		}
 		
-		sb = sb.reverse();
+		while(!appliedOperators.isEmpty())
+		{
+			sb.append(appliedOperators.pop());
+			if(!appliedOperators.isEmpty()) sb.append(',');
+		}
+		
 		sb.append(';');
 		sb.append(goalNode.getPathCost());
 		sb.append(';');
