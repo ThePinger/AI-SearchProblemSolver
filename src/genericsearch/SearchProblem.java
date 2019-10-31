@@ -68,10 +68,13 @@ public abstract class SearchProblem
 	public abstract void calculateExpectedCostToGoal(Node node);
 	
 	/**
-	 * 
-	 * @param q
-	 * @param maximumDepth
-	 * @return
+	 * This is the general search procedure. It searches for all possible sequences of states by applying all possible operators
+	 * to all currently available states starting from the initial state. How newly generated nodes are added to the queue depends
+	 * on the QINGFunction that it takes as input.
+	 * @param q the QINGFunction that will be used.
+	 * @param maximumDepth This integer is only used with the Iterative Deepening Search Qing function. It represents the depth at which 
+	 * the search procedure is going to stop generating new nodes. It is set to -1 with all other qing functions
+	 * @return The goal node if it has been found, null otherwise.
 	 */
 	public Node generalSearch(QINGFunction q, int maximumDepth)
 	{
@@ -105,7 +108,7 @@ public abstract class SearchProblem
 	 * @param heuristicFunction, the int indicating the heuristic function that should be used.
 	 * @return The result of calling generalSearch.
 	 */
-	public Node AStar(int heuristicFunction)
+	public Node aStar(int heuristicFunction)
 	{
 		if(heuristicFunction == 1)
 			return this.generalSearch(QINGFunction.A_STAR_1, -1);
