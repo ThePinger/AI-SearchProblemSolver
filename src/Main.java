@@ -42,8 +42,8 @@ public class Main
 		else if(strategy.equals("UC")) goalNode = endGame.ucs();
 		else if(strategy.equals("GR1")) goalNode = endGame.greedySearch(1);
 		else if(strategy.equals("GR2")) goalNode = endGame.greedySearch(2);
-		else if(strategy.equals("AS1")) goalNode = endGame.AStar(1);
-		else goalNode = endGame.AStar(2);
+		else if(strategy.equals("AS1")) goalNode = endGame.aStar(1);
+		else goalNode = endGame.aStar(2);
 		
 		return endGame.generateSolutionString(goalNode);
 	}
