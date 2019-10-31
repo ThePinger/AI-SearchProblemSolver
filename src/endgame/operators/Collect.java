@@ -28,7 +28,6 @@ public class Collect extends EndGameOperator
 			{
 				// add 3 damage and remove the stone
 				addedDamage = 3;
-				uncollectedStones.remove(stonePosition);
 			}
 		}
 		
