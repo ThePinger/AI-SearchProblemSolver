@@ -22,14 +22,10 @@ public class Collect extends EndGameOperator
 		boolean isThanosAlive = ((EndGameState) oldState).isThanosAlive();
 		
 		int addedDamage = 0;
-		for(Position stonePosition : uncollectedStones)
+		if(uncollectedStones.contains(ironManPosition))
 		{
-			if(stonePosition.equals(ironManPosition))
-			{
-				// add 3 damage and remove the stone
-				addedDamage = 3;
-				uncollectedStones.remove(stonePosition);
-			}
+			uncollectedStones.remove(ironManPosition);
+			addedDamage += 3;
 		}
 		
 		// check if Ironman occupies the same cell as an infinity stone. If so return a new state, else return null.
