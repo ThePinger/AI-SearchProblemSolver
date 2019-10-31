@@ -9,7 +9,8 @@ public abstract class SearchProblem
 {
 	private ArrayList <Operator> operators;
 	private State initialState;
-	private HashSet <State> stateSpace;
+	private HashSet <String> stateSpace;
+	private long expandedNodes;
 	
 	public ArrayList <Operator> getoperators()
 	{
@@ -31,7 +32,7 @@ public abstract class SearchProblem
 		this.initialState = initialState;
 	}
 
-	public HashSet <State> getStateSpace()
+	public HashSet <String> getStateSpace()
 	{
 		return this.stateSpace;
 	}
@@ -74,12 +75,17 @@ public abstract class SearchProblem
 	 */
 	public Node generalSearch(QINGFunction q, int maximumDepth)
 	{
+		this.expandedNodes = 0;
+		this.stateSpace = new HashSet<>();
 		this.initialState = this.createInitialState();
+		this.stateSpace.add(this.initialState.generateStateID());
 		Node rootNode = new Node(this.initialState, null, null, 0, 0, q);
+		
 		Queue <Node> queue = new LinkedList<Node>();
 		queue.add(rootNode);
 		AuxiliaryQueue auxQ = new AuxiliaryQueue(q);
 		auxQ.insertNewNodes(queue);
+		
 		while( !(auxQ.isEmpty()) )
 		{
 			Node node = auxQ.removeFront();
@@ -88,6 +94,7 @@ public abstract class SearchProblem
 			if (node.getDepth() == maximumDepth)
 				continue;
 			auxQ.insertNewNodes(this.expand(node));
+			this.expandedNodes++;
 		}
 		return null;
 	}
@@ -184,15 +191,36 @@ public abstract class SearchProblem
 			State childNodeState = operators.get(i).apply(node.getState());
 			if(childNodeState != null)
 			{
-				if( !(this.stateSpace.contains(childNodeState)) )
+				String stateString = childNodeState.generateStateID();
+				if( !(this.stateSpace.contains(stateString)) )
 				{
 					Node childNode = new Node(childNodeState, node, operators.get(i), (node.getParentNode().getDepth() + 1), this.pathCost(childNodeState), node.getQingFunction());
 					this.calculateExpectedCostToGoal(childNode);
-					this.stateSpace.add(childNodeState);
+					this.stateSpace.add(stateString);
 					q.add(childNode);
 				}
 			}
 		}
 		return q;
+	}
+	
+	public String generateSolutionString(Node goalNode)
+	{
+		StringBuilder sb = new StringBuilder();
+		Node curNode = goalNode;
+		while(curNode != null)
+		{
+			sb.append(curNode.getOperator().getOperatorName());
+			curNode = curNode.getParentNode();
+			if(curNode != null) sb.append(',');
+		}
+		
+		sb = sb.reverse();
+		sb.append(';');
+		sb.append(goalNode.getPathCost());
+		sb.append(';');
+		sb.append(this.expandedNodes);
+		
+		return sb.toString();
 	}
 }
