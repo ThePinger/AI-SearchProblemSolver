@@ -197,7 +197,7 @@ public abstract class SearchProblem
 				String stateString = childNodeState.generateStateID();
 				if( !(this.stateSpace.contains(stateString)) )
 				{
-					Node childNode = new Node(childNodeState, node, operators.get(i), (node.getParentNode().getDepth() + 1), this.pathCost(childNodeState), node.getQingFunction());
+					Node childNode = new Node(childNodeState, node, operators.get(i), (node.getDepth() + 1), this.pathCost(childNodeState), node.getQingFunction());
 					this.calculateExpectedCostToGoal(childNode);
 					this.stateSpace.add(stateString);
 					q.add(childNode);
