@@ -45,4 +45,10 @@ public class Kill extends EndGameOperator
 		
 		return null;
 	}
+
+	@Override
+	public String getOperatorName() 
+	{
+		return "kill";
+	}
 }

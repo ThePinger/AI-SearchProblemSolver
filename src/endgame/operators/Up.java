@@ -29,5 +29,11 @@ public class Up extends EndGameOperator
 			return newState;
 		return null;
 	}
+
+	@Override
+	public String getOperatorName() 
+	{
+		return "up";
+	}
 	
 }

@@ -13,7 +13,8 @@ public class Right extends EndGameOperator
 	 * If the new state is a valid one and the new damage is less than 100, the method returns the new state.
 	 * Otherwise it returns null.
 	 */
-	public State apply(State oldState) {
+	public State apply(State oldState) 
+	{
 		// apply the operator by changing the needed variables in the old state. Keep the other ones unchanged but clone them.
 		int newY = ((EndGameState) oldState).getIronManPosition().getY() + 1;
 		Position newIronManPosition = new Position(((EndGameState) oldState).getIronManPosition().getX(), newY);
@@ -30,4 +31,12 @@ public class Right extends EndGameOperator
 			return newState;
 		return null;
 	}
+
+	@Override
+	public String getOperatorName() 
+	{
+		return "right";
+	}
+	
+	
 }

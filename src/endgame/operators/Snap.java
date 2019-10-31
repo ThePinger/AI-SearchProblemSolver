@@ -27,4 +27,10 @@ public class Snap extends EndGameOperator
 		else
 			return null;
 	}
+
+	@Override
+	public String getOperatorName() 
+	{
+		return "snap";
+	}
 }

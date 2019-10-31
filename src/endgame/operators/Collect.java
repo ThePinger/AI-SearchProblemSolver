@@ -46,4 +46,10 @@ public class Collect extends EndGameOperator
 		return null;
 	}
 	
+
+	@Override
+	public String getOperatorName() 
+	{
+		return "collect";
+	}
 }

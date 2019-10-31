@@ -28,4 +28,10 @@ public class Down extends EndGameOperator
 			return newState;
 		return null;
 	}
+
+	@Override
+	public String getOperatorName() 
+	{
+		return "down";
+	}
 }
