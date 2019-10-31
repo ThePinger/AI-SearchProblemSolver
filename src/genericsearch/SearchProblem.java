@@ -101,7 +101,7 @@ public abstract class SearchProblem
 	 * @param heuristicFunction, the int indicating the heuristic function that should be used.
 	 * @return The result of calling generalSearch.
 	 */
-	public Node AStar(int heuristicFunction)
+	public Node aStar(int heuristicFunction)
 	{
 		if(heuristicFunction == 1)
 			return this.generalSearch(QINGFunction.A_STAR_1, -1);

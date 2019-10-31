@@ -109,9 +109,9 @@ public class EndGame extends SearchProblem
 	public void calculateExpectedCostToGoal(Node node)
 	{
 		if(node.getQingFunction() == QINGFunction.A_STAR_1)
-			node.setExpectedCostToGoal(this.AStarHeuristic1(node));
+			node.setExpectedCostToGoal(this.aStarHeuristic1(node));
 		if(node.getQingFunction() == QINGFunction.A_STAR_2)
-			node.setExpectedCostToGoal(this.AStarHeuristic2(node));
+			node.setExpectedCostToGoal(this.aStarHeuristic2(node));
 		if(node.getQingFunction() == QINGFunction.GREEDY_1)
 			node.setExpectedCostToGoal(this.greedyHeuristic1(node));
 		if(node.getQingFunction() == QINGFunction.GREEDY_2)
@@ -195,7 +195,7 @@ public class EndGame extends SearchProblem
 	 * @param the node that the expected for is being calculated.
 	 * @return the expected cost to the goal ( f(n) )
 	 */
-	private double AStarHeuristic1(Node node)
+	private double aStarHeuristic1(Node node)
 	{
 		int pathCost = node.getPathCost();
 		int stonesRemaining = ((EndGameState) node.getState()).getUncollectedStones().size();
@@ -216,7 +216,7 @@ public class EndGame extends SearchProblem
 	 * @param the node that the expected for is being calculated.
 	 * @return the expected cost to the goal ( f(n) )
 	 */
-	private double AStarHeuristic2(Node node)
+	private double aStarHeuristic2(Node node)
 	{
 		int pathCost = node.getPathCost();
 		int stonesRemaining = ((EndGameState) node.getState()).getUncollectedStones().size();
