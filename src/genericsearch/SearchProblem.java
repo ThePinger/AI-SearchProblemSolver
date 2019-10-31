@@ -110,8 +110,8 @@ public abstract class SearchProblem
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * This method performs Depth First Search.
+	 * @return goal node if found, null otherwise.
 	 */
 	public Node dfs()
 	{
@@ -119,8 +119,8 @@ public abstract class SearchProblem
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * This method performs Iterative Deepening Search.
+	 * @return goal node if found, null otherwise.
 	 */
 	public Node ids()
 	{
