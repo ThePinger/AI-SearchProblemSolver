@@ -1,5 +1,6 @@
 package endgame;
 
+import java.util.Arrays;
 import java.util.TreeSet;
 
 import genericsearch.State;
@@ -8,28 +9,45 @@ import genericsearch.State;
 public class EndGameState implements State
 {
 	// This variable represents IronMan Position
-	private Position ironManPosition; 
+	private String ironManPosition; 
 	// This variable represents the damage received by IronMan
 	private int damage; 
 	// This variable represents a set of uncollected stones
-	private TreeSet<Position> uncollectedStones;
+	private String uncollectedStones;
 	// This variable represents a set of alive warriors
-	private TreeSet<Position> aliveWarriors; 
+	private String aliveWarriors; 
 	// This variable represents if thanos is alive or not
 	private boolean isThanosAlive;
 	
 	public EndGameState(Position ironManPosition, int damage, TreeSet<Position> uncollectedStones, TreeSet<Position> aliveWarriors, boolean isThanosAlive) 
 	{
-		this.ironManPosition = ironManPosition;
+		this.ironManPosition = ironManPosition.toString();
 		this.damage = damage;
-		this.uncollectedStones = uncollectedStones;
-		this.aliveWarriors = aliveWarriors;
+		
+		this.uncollectedStones = "";
+		for(Position current : uncollectedStones)
+		{
+			this.uncollectedStones += current.toString() + " ";
+		}
+		if(this.uncollectedStones.length() != 0)
+			this.uncollectedStones = this.uncollectedStones.substring(0, this.uncollectedStones.length() - 1);
+		
+		this.aliveWarriors = "";
+		for(Position current : aliveWarriors)
+		{
+			this.aliveWarriors += current.toString() + " ";
+		}
+		if(this.aliveWarriors.length() != 0)
+			this.aliveWarriors = this.aliveWarriors.substring(0, this.aliveWarriors.length() - 1);
+		
 		this.isThanosAlive = isThanosAlive;
+		
 	}
 	
 	public Position getIronManPosition() 
 	{
-		return this.ironManPosition;
+		String[] position = this.ironManPosition.split(",");
+		return  new Position(Integer.parseInt(position[0]), Integer.parseInt(position[1]));
 	}
 	
 	public int getDamage() 
@@ -39,12 +57,30 @@ public class EndGameState implements State
 	
 	public TreeSet<Position> getUncollectedStones() 
 	{
-		return (TreeSet<Position>) this.uncollectedStones.clone();
+		String[] stones = this.uncollectedStones.split(" ");
+		TreeSet<Position> stonesPositions = new TreeSet<>();
+		if(this.uncollectedStones.length() == 0) return stonesPositions;
+		for(int i = 0; i < stones.length; i++)
+		{
+			String[] position = stones[i].split(",");
+			stonesPositions.add(new Position(Integer.parseInt(position[0]), Integer.parseInt(position[1])));
+		}
+		
+		return stonesPositions;
 	}
 	
 	public TreeSet<Position> getAliveWarriors() 
 	{
-		return (TreeSet<Position>) this.aliveWarriors.clone();
+		String[] warriors = this.aliveWarriors.split(" ");
+		TreeSet<Position> warriorsPositions = new TreeSet<>();
+		if(this.aliveWarriors.length() == 0) return warriorsPositions;
+		for(int i = 0; i < warriors.length; i++)
+		{
+			String[] position = warriors[i].split(",");
+			warriorsPositions.add(new Position(Integer.parseInt(position[0]), Integer.parseInt(position[1])));
+		}
+		
+		return warriorsPositions;
 	}
 	
 	public boolean isThanosAlive() 
@@ -58,25 +94,16 @@ public class EndGameState implements State
 		StringBuilder sb = new StringBuilder();
 		
 		// Append IronMan Position
-		sb.append(this.ironManPosition.getX());
-		sb.append(this.ironManPosition.getY());
+		sb.append(this.ironManPosition);
 		
 		// Append Damage
 		sb.append(this.damage);
 	
 		// Append Uncollected Stones Positions
-		for(Position p: this.uncollectedStones)
-		{
-			sb.append(p.getX());
-			sb.append(p.getY());
-		}
+		sb.append(this.uncollectedStones);
 		
 		// Append Alive Warriors Positions
-		for(Position p: this.aliveWarriors)
-		{
-			sb.append(p.getX());
-			sb.append(p.getY());
-		}
+		sb.append(this.aliveWarriors);
 		
 		// Append isThanosAlive
 		sb.append(this.isThanosAlive);	
@@ -99,7 +126,7 @@ public class EndGameState implements State
 		if(!(obj instanceof EndGameState)) return false;
 		
 		EndGameState otherObject = (EndGameState) obj;
-		if(!this.ironManPosition.equals(otherObject.ironManPosition)) return false;
+		/*if(!this.ironManPosition.equals(otherObject.ironManPosition)) return false;
 		if(this.damage != otherObject.damage) return false;
 		if(!this.identicalTreeSet((TreeSet<Position>) this.uncollectedStones.clone(), (TreeSet<Position>) otherObject.uncollectedStones.clone()))
 			return false;
@@ -107,7 +134,8 @@ public class EndGameState implements State
 			return false;
 		if(this.isThanosAlive != otherObject.isThanosAlive) return false;
 		
-		return true;
+		return true;*/
+		return this.generateStateID().equals(otherObject.generateStateID());
 	}
 	
 	/**
@@ -143,7 +171,7 @@ public class EndGameState implements State
 		sb.append("\n");
 		
 		// Uncollected Stones
-		sb.append("Uncollected Stones Positions :");
+		/*sb.append("Uncollected Stones Positions :");
 		for(Position p : this.uncollectedStones)
 		{
 			sb.append(p.toString());
@@ -156,7 +184,7 @@ public class EndGameState implements State
 		{
 			sb.append(p.toString());
 			sb.append("\n");
-		}
+		}*/
 		
 		// isThanosAlive
 		sb.append("isThanosAlive : ");

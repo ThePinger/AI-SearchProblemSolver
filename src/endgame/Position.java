@@ -53,6 +53,6 @@ public class Position implements Comparable<Position>
 	@Override
 	public String toString() 
 	{
-		return "Position: X = " + this.x + ", Y = " + this.y;
+		return this.x + "," + this.y;
 	}
 }
