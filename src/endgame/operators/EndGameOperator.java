@@ -70,14 +70,11 @@ public abstract class EndGameOperator implements Operator
 		int x = ironManPosition.getX();
 		int y = ironManPosition.getY();
 		ArrayList <Position> a = new ArrayList<Position>();
-		if (this.isWithinGrid(x+1, y))
-			a.add(new Position(x+1,y));
-		if (this.isWithinGrid(x-1, y))
-			a.add(new Position(x-1,y));
-		if (this.isWithinGrid(x, y+1))
-			a.add(new Position(x,y+1));
-		if (this.isWithinGrid(x, y-1))
-			a.add(new Position(x,y-1));
+
+		a.add(new Position(x+1,y));
+		a.add(new Position(x-1,y));
+		a.add(new Position(x,y+1));
+		a.add(new Position(x,y-1));
 		return a;
 		
 	}
