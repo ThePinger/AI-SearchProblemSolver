@@ -145,7 +145,7 @@ public class EndGame extends SearchProblem
 					warriorsAdjacentToStonesCount++;
 		}
 		
-		return (3 * uncollectedStones) + (2 * warriorsAdjacentToStonesCount) + 5;
+		return (3 * uncollectedStones) + (2 * warriorsAdjacentToStonesCount) + (state.isThanosAlive() ? 5 : 0);
 	}
 	
 	/**
@@ -181,7 +181,7 @@ public class EndGame extends SearchProblem
 			}
 		}
 		
-		return (3 * uncollectedStones) + (0.75 * warriorsAdjacentToStonesCount) + (5 * (thanosAdjacentToStonesCount + 1));
+		return (3 * uncollectedStones) + (0.75 * warriorsAdjacentToStonesCount) + (5 * (thanosAdjacentToStonesCount + (state.isThanosAlive() ? 1 : 0)));
 	}
 	
 	/**
@@ -200,7 +200,7 @@ public class EndGame extends SearchProblem
 		int pathCost = node.getPathCost();
 		int stonesRemaining = ((EndGameState) node.getState()).getUncollectedStones().size();
 		
-		double h = (stonesRemaining * 3) + 5;
+		double h = (stonesRemaining * 3) + (((EndGameState) node.getState()).isThanosAlive() ? 5 : 0);
 		
 		return pathCost + h;
 	}
@@ -241,7 +241,7 @@ public class EndGame extends SearchProblem
 			warriors = ((EndGameState) node.getState()).getAliveWarriors();
 		}
 		
-		double h = (stonesRemaining * 3) + (0.75 * warriorsAdjacentToStones) + 5;
+		double h = (stonesRemaining * 3) + (0.75 * warriorsAdjacentToStones) + (((EndGameState) node.getState()).isThanosAlive() ? 5 : 0);
 		
 		return pathCost + h;
 	}
