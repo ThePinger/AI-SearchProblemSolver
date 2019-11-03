@@ -45,12 +45,12 @@ public class Main
 		else if(strategy.equals("AS1")) goalNode = endGame.aStar(1);
 		else goalNode = endGame.aStar(2);
 		
-		return endGame.generateSolutionString(goalNode);
+		return goalNode == null ? "" : endGame.generateSolutionString(goalNode);
 	}
 	
 	public static void main(String[] args) 
 	{
-		System.out.println(solve("5,5;1,2;3,1;0,2,1,1,2,1,2,2,4,0,4,1;0,3,3,0,3,2,3,4,4,3", "BF", false));
+		System.out.println(solve("13,13;4,2;2,4;6,1,1,10,8,4,9,2,2,8,9,4;6,4,3,4,3,11,1,12,1,9", "DF", false));
 	}
 
 }
