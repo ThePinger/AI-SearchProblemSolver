@@ -208,8 +208,16 @@ public abstract class SearchProblem
 		return q;
 	}
 	
+	/**
+	 * This function returns the sequence of actions of the correct solution alongside the damage value and the number of expanded nodes
+	 * 
+	 * @param goalNode
+	 * @return String that represents the solution
+	 */
 	public String generateSolutionString(Node goalNode)
 	{
+		if(goalNode == null) return "";
+		
 		StringBuilder sb = new StringBuilder();
 		Node curNode = goalNode;
 		Stack<String> appliedOperators = new Stack<>();
@@ -229,7 +237,7 @@ public abstract class SearchProblem
 		sb.append(goalNode.getPathCost());
 		sb.append(';');
 		sb.append(this.expandedNodes);
-		
+		System.out.println(sb);
 		return sb.toString();
 	}
 }
