@@ -59,23 +59,30 @@ public class EndGameState implements State
 		
 		// Append IronMan Position
 		sb.append(this.ironManPosition.getX());
+		sb.append(" ");
 		sb.append(this.ironManPosition.getY());
+		sb.append(" ");
 		
 		// Append Damage
 		sb.append(this.damage);
+		sb.append(" ");
 	
 		// Append Uncollected Stones Positions
 		for(Position p: this.uncollectedStones)
 		{
 			sb.append(p.getX());
+			sb.append(" ");
 			sb.append(p.getY());
+			sb.append(" ");
 		}
 		
 		// Append Alive Warriors Positions
 		for(Position p: this.aliveWarriors)
 		{
 			sb.append(p.getX());
+			sb.append(" ");
 			sb.append(p.getY());
+			sb.append(" ");
 		}
 		
 		// Append isThanosAlive
