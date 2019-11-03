@@ -1,6 +1,7 @@
 package endgame;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.TreeSet;
 
 import endgame.operators.*;
@@ -267,5 +268,57 @@ public class EndGame extends SearchProblem
 			
 		return a;
 		
+	}
+	
+	/**
+	 * This function prints the grid at each state in the path from root to GoalNode.
+	 * 
+	 * @param cur is the goalnode as parameter to the function
+	 */
+	public void visualize(Node cur)
+	{
+		if(cur == null) return;
+		visualize(cur.getParentNode());
+		generateAndPrint2DGrid((EndGameState) cur.getState(), cur.getDepth());
+	}
+	
+	/**
+	 * This is a helper function that generates and prints the grid
+	 * 
+	 * @param state the current endGame state
+	 * @param depth the state node depth in search tree to be printed as a state number
+	 */
+	private void generateAndPrint2DGrid(EndGameState state, int depth)
+	{
+		StringBuilder[][] grid = new StringBuilder[EndGame.m][EndGame.n];
+		
+		for(int i = 0; i < EndGame.m; i++)
+			for(int j = 0; j < EndGame.n; j++)
+				grid[i][j] = new StringBuilder();
+			
+		
+		Position ironMan = state.getIronManPosition();
+		grid[ironMan.getX()][ironMan.getY()].append('I');
+		
+		TreeSet<Position> warriors = state.getAliveWarriors();
+		for(Position p: warriors)
+			grid[p.getX()][p.getY()].append('W');
+		
+		TreeSet<Position> stones = state.getUncollectedStones();
+		for(Position p: stones)
+			grid[p.getX()][p.getY()].append('S');
+		
+		if(state.isThanosAlive())
+			grid[EndGame.thanosLocation.getX()][EndGame.getThanosLocation().getY()].append('T');
+		
+		for(int i = 0; i < EndGame.m; i++)
+			for(int j = 0; j < EndGame.n; j++)
+				if(grid[i][j].length() == 0)
+					grid[i][j].append('_');
+		
+		System.out.println("State: " + depth);
+		for(StringBuilder[] sBuilders : grid)
+			System.out.println(Arrays.toString(sBuilders));
+		System.out.println();
 	}
 }

@@ -209,14 +209,14 @@ public abstract class SearchProblem
 	}
 	
 	/**
-	 * This function returns the sequence of actions of the correct solution alongside the damage value and the number of expanded nodes
+	 * This function returns the sequence of actions of the correct solution alongside the path cost value and the number of expanded nodes
 	 * 
 	 * @param goalNode
 	 * @return String that represents the solution
 	 */
 	public String generateSolutionString(Node goalNode)
 	{
-		if(goalNode == null) return "";
+		if(goalNode == null) return "No Solution Found";
 		
 		StringBuilder sb = new StringBuilder();
 		Node curNode = goalNode;
@@ -237,7 +237,10 @@ public abstract class SearchProblem
 		sb.append(goalNode.getPathCost());
 		sb.append(';');
 		sb.append(this.expandedNodes);
-		System.out.println(sb);
+		
+//		System.out.println(sb);
+//		System.out.println();
+		
 		return sb.toString();
 	}
 }
