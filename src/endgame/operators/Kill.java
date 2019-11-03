@@ -33,7 +33,8 @@ public class Kill extends EndGameOperator
 				newDamage += 2;
 			}
 			
-			newWarriors.add(p);
+			else
+				newWarriors.add(p);
 		}
 		
 		// If no attacks initiated don't create a new state

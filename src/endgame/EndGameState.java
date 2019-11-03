@@ -76,14 +76,9 @@ public class EndGameState implements State
 			sb.append(" ");
 		}
 		
-		// Append Alive Warriors Positions
-		for(Position p: this.aliveWarriors)
-		{
-			sb.append(p.getX());
-			sb.append(" ");
-			sb.append(p.getY());
-			sb.append(" ");
-		}
+		// Append Alive Warriors Count
+		sb.append(this.aliveWarriors.size());
+		sb.append(" ");
 		
 		// Append isThanosAlive
 		sb.append(this.isThanosAlive);	
